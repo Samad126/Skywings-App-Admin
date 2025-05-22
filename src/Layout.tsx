@@ -23,7 +23,7 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 
 const drawerWidth: number = 240;
 
-const Layout: React.FC = () => {
+function Layout() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -182,6 +182,6 @@ const Layout: React.FC = () => {
       </Box>
     </>
   );
-};
+}
 
 export default Layout;
