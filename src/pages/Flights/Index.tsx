@@ -23,7 +23,9 @@ export default function FlightsIndex() {
   const { adminId } = useAppContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialDate = searchParams.get("date") ?? "";
+  const today: string = new Date().toISOString().split("T")[0];
+
+  const initialDate = searchParams.get("date") ?? today;
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
   const query = selectedDate ? `date=${selectedDate}` : null;

@@ -1,4 +1,4 @@
-type FlighDetail = {
+export type FlighDetail = {
   id: number;
   departure_airport_id: number;
   arrival_airport_id: number;
