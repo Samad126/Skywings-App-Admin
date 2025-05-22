@@ -17,6 +17,7 @@ import FlightDetail from "../pages/Flights/Detail.tsx";
 import Login from "../pages/Login/Login.tsx";
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
+import AdminDetail from "@/pages/Admin/Detail.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <AdminIndex />,
+          },
+          {
+            path: ":id",
+            element: <AdminDetail />,
           },
           {
             path: "create",

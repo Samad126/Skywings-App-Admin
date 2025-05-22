@@ -6,3 +6,10 @@ export type AdminDetail = {
   created_at: string | null;
   updated_at: string | null;
 };
+
+export type AdminPOSTBody = {
+  username: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+};

@@ -33,7 +33,7 @@ export default function AdminIndex() {
         <Typography variant="h4" component="h1">
           Admin Users
         </Typography>
-        <Button component={Link} to="/admins/create" variant="contained">
+        <Button component={Link} to="create" variant="contained">
           Add Admin
         </Button>
       </Box>
@@ -84,7 +84,7 @@ export default function AdminIndex() {
                   <TableCell>
                     <Button
                       component={Link}
-                      to={`/admins/${admin.id}`}
+                      to={`${admin.id}`}
                       size="small"
                       variant="outlined"
                     >
