@@ -1,46 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function useFetchData<T>(url: string, path: number | null = null) {
+export default function useFetchData<T>(
+  url: string,
+  path: number | null = null,
+  query: string | null = null,
+  headers: Record<string, string>
+) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        const response = await fetch(`${API_URL}/${url}/${path ?? ""}`);
+    try {
+      const response = await fetch(
+        `${API_URL}/${url}/${path ?? ""}${query ? `?${query}` : ""}`,
+        { headers }
+      );
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || "Failed to fetch");
-        }
-
-        const result = await response.json();
-        setData(result.data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occurred");
-        }
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to fetch");
       }
-    };
 
+      const result = await response.json();
+      setData(result.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [url, path, query, headers]);
+
+  useEffect(() => {
     fetchData();
-  }, [path, url]);
+  }, [fetchData]);
 
   return {
     data,
     isLoading,
     error,
+    refetch: fetchData,
   };
 }
-
-export default useFetchData;
