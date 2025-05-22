@@ -15,7 +15,7 @@ import AdminIndex from "../pages/Admin/Index.tsx";
 import AdminCreate from "../pages/Admin/Create.tsx";
 import FlightDetail from "../pages/Flights/Detail.tsx";
 import Login from "../pages/Login/Login.tsx";
-import { createBrowserRouter, createHashRouter } from "react-router";
+import { createHashRouter } from "react-router";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import AdminDetail from "@/pages/Admin/Detail.tsx";
 
