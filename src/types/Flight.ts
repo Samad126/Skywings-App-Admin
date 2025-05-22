@@ -48,3 +48,15 @@ export type FlightsResponse = {
   to: null;
   total: number | null;
 };
+
+export type FlightPOSTBody = {
+  departure_airport_id: number;
+  arrival_airport_id: number;
+  flight_date: string; //"2025-05-20T10:00:00Z"
+  arrival_date: string; //"2025-05-20T10:00:00Z"
+  aircraft: string;
+  econom_free_seats: number;
+  business_free_seats: number;
+  econom_price: number; //can be float
+  business_price: number; // can be float
+};

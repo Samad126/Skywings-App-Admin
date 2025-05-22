@@ -6,7 +6,7 @@ export default function useFetchData<T>(
   url: string,
   path: number | null = null,
   query: string | null = null,
-  headers: Record<string, string>
+  headers: Record<string, string> = {}
 ) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
