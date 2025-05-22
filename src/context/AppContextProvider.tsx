@@ -1,26 +1,29 @@
 import { useState } from "react";
 import { AppContext } from "./AppContext";
-import type { ContextValue, UserData } from "@/types/ContextValue";
+import type { ContextValue } from "@/types/ContextValue";
 
 export default function AppContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const storageAdminId = Number(localStorage.getItem("adminId")) || null;
 
-  function updateUserData() {
-    setUserData(null);
+  const [adminId, setAdminId] = useState<ContextValue["adminId"]>(storageAdminId);
+
+  function updateAdminState(adminId: number) {
+    setAdminId(adminId);
+    localStorage.setItem("adminId", adminId.toString());
   }
 
-  function removeUserData() {
-    setUserData(null);
+  function resetAdminState() {
+    setAdminId(null);
   }
 
   const contextValue: ContextValue = {
-    userData: userData,
-    removeUserData,
-    updateUserData,
+    adminId,
+    updateAdminState,
+    resetAdminState,
   };
 
   return (

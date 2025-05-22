@@ -13,11 +13,11 @@ const API_URL: string = import.meta.env.VITE_API_URL;
 
 const LoginPage = () => {
   const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  const { updateUserData } = useAppContext();
+  const { updateAdminState } = useAppContext();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -60,6 +60,7 @@ const LoginPage = () => {
 
     responseData = (await response.json()) as Login200Response;
 
+    updateAdminState(responseData.data);
     navigate("/");
 
     setLoading(false);
