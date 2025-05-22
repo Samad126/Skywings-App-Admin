@@ -19,7 +19,7 @@ import {
 
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 
 const drawerWidth: number = 240;
 
@@ -28,6 +28,8 @@ const Layout: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -43,6 +45,7 @@ const Layout: React.FC = () => {
 
   const handleLogout = () => {
     handleClose();
+    navigate("/login");
     console.log("Logged out");
   };
 
@@ -62,7 +65,6 @@ const Layout: React.FC = () => {
             <ListItemButton
               component={NavLink}
               to={to}
-              end
               sx={{
                 fontWeight: 500,
                 color: "text.primary",

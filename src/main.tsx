@@ -7,7 +7,7 @@ import Layout from "./Layout.tsx";
 
 import Error from "./Error.tsx";
 
-import Homepage from "./pages/Homepage.tsx";
+import Homepage from "./pages/Home/Homepage.tsx";
 
 import FlightsIndex from "./pages/Flights/Index.tsx";
 import FlightsEdit from "./pages/Flights/Edit.tsx";
@@ -19,8 +19,13 @@ import AirportsCreate from "./pages/Airports/Create.tsx";
 import AdminIndex from "./pages/Admin/Index.tsx";
 import AdminCreate from "./pages/Admin/Create.tsx";
 import FlightDetail from "./pages/Flights/Detail.tsx";
+import Login from "./pages/Login/Login.tsx";
 
 const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <Layout />,
