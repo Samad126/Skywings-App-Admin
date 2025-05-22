@@ -1,5 +1,7 @@
-import React from "react";
+function Homepage() {
+  return (
+    <div>Homepage</div>
+  )
+}
 
-export const Homepage: React.FC = () => {
-  return <div>TestPage1TestPage1</div>;
-};
+export default Homepage
