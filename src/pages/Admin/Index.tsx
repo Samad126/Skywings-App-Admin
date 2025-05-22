@@ -15,10 +15,17 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
+import { useMemo } from "react";
 import { Link } from "react-router";
 
 export default function AdminIndex() {
-  const { data: admins, isLoading, error } = useFetchData<Array<AdminDetail>>("admin");
+  const headers = useMemo(() => ({}), []);
+
+  const {
+    data: admins,
+    isLoading,
+    error,
+  } = useFetchData<Array<AdminDetail>>("admin", null, null, headers);
 
   return (
     <Box>
@@ -69,7 +76,10 @@ export default function AdminIndex() {
                   <TableCell>{admin.id}</TableCell>
                   <TableCell>
                     {admin.profile_photo ? (
-                      <Avatar alt={admin.username || "Admin"} src={admin.profile_photo} />
+                      <Avatar
+                        alt={admin.username || "Admin"}
+                        src={admin.profile_photo}
+                      />
                     ) : (
                       <Avatar>{admin.username?.[0] ?? "A"}</Avatar>
                     )}

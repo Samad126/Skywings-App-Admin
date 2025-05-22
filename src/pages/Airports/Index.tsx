@@ -14,14 +14,21 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import { useMemo } from "react";
 import { Link } from "react-router";
 
 export default function AirportsIndexPage() {
+  const headers = useMemo(() => ({}), []);
   const {
     data: airports,
-    error,
     isLoading,
-  } = useFetchData<Array<AirportsResponseItem>>("airports");
+    error,
+  } = useFetchData<Array<AirportsResponseItem>>(
+    "airports",
+    null,
+    null,
+    headers
+  );
 
   return (
     <Box>

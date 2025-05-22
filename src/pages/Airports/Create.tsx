@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Typography,
@@ -19,11 +19,13 @@ export default function AirportsCreate() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const headers = useMemo(() => ({}), []);
+
   const {
     data: cities,
     isLoading: isCitiesLoading,
     error: citiesError,
-  } = useFetchData<Array<string>>("enum/cities");
+  } = useFetchData<Array<string>>("enum/cities", null, null, headers);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

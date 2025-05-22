@@ -9,16 +9,19 @@ import {
 } from "@mui/material";
 import useFetchData from "@/hooks/useFetchData";
 import type { AdminDetail } from "@/types/Admin";
+import { useMemo } from "react";
 
 export default function AdminDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
+  const headers = useMemo(() => ({}), []);
+
   const {
     data: admin,
     isLoading,
     error,
-  } = useFetchData<AdminDetail>("admin", Number(id));
+  } = useFetchData<AdminDetail>("admin", Number(id), null, headers);
 
   return (
     <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, px: 2 }}>
