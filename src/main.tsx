@@ -3,7 +3,10 @@ import "./index.css";
 
 import { RouterProvider } from "react-router";
 import { router } from "./util/route";
+import AppContextProvider from "./context/AppContextProvider";
 
 createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={router} />
+  <AppContextProvider>
+    <RouterProvider router={router} />
+  </AppContextProvider>
 );
