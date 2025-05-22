@@ -20,6 +20,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { NavLink, Outlet, useNavigate } from "react-router";
+import { useAppContext } from "./hooks/useAppContext";
 
 const drawerWidth: number = 240;
 
@@ -30,6 +31,8 @@ function Layout() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
+
+  const {resetAdminState} = useAppContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -46,6 +49,7 @@ function Layout() {
   const handleLogout = () => {
     handleClose();
     navigate("/login");
+    resetAdminState()
     console.log("Logged out");
   };
 

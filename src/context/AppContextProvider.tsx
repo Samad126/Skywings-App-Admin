@@ -9,7 +9,8 @@ export default function AppContextProvider({
 }) {
   const storageAdminId = Number(localStorage.getItem("adminId")) || null;
 
-  const [adminId, setAdminId] = useState<ContextValue["adminId"]>(storageAdminId);
+  const [adminId, setAdminId] =
+    useState<ContextValue["adminId"]>(storageAdminId);
 
   function updateAdminState(adminId: number) {
     setAdminId(adminId);
@@ -18,6 +19,7 @@ export default function AppContextProvider({
 
   function resetAdminState() {
     setAdminId(null);
+    localStorage.removeItem("adminId");
   }
 
   const contextValue: ContextValue = {
