@@ -16,6 +16,7 @@ import AdminCreate from "../pages/Admin/Create.tsx";
 import FlightDetail from "../pages/Flights/Detail.tsx";
 import Login from "../pages/Login/Login.tsx";
 import { createBrowserRouter } from "react-router";
+import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
