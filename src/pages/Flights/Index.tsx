@@ -51,17 +51,22 @@ export default function FlightsIndex() {
   }, [selectedDate, setSearchParams]);
 
   const handleDelete = async (id: number) => {
-    const confirmed = window.confirm("Are you sure you want to delete this flight?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this flight?"
+    );
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/flights/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "user-id": String(adminId),
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/flights/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "user-id": String(adminId),
+          },
+        }
+      );
 
       if (!response.ok) {
         const text = await response.text();
@@ -70,15 +75,30 @@ export default function FlightsIndex() {
 
       refetch();
     } catch (err) {
-      alert("Error deleting flight: " + (err instanceof Error ? err.message : "Unknown error"));
+      alert(
+        "Error deleting flight: " +
+          (err instanceof Error ? err.message : "Unknown error")
+      );
     }
   };
 
   return (
     <Box sx={{ px: 2, py: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Flights by Date
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 3,
+          flexWrap: "wrap",
+          gap: 2,
+        }}
+      >
+        <Typography variant="h4">Flights by Date</Typography>
+        <Button variant="contained" onClick={() => navigate("create")}>
+          Create Flight
+        </Button>
+      </Box>
 
       <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
         <TextField
@@ -126,8 +146,12 @@ export default function FlightsIndex() {
                   <TableCell>{flight.id}</TableCell>
                   <TableCell>{flight.departure_airport_id}</TableCell>
                   <TableCell>{flight.arrival_airport_id}</TableCell>
-                  <TableCell>{new Date(flight.flight_date).toLocaleString()}</TableCell>
-                  <TableCell>{new Date(flight.arrival_date).toLocaleString()}</TableCell>
+                  <TableCell>
+                    {new Date(flight.flight_date).toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(flight.arrival_date).toLocaleString()}
+                  </TableCell>
                   <TableCell>{flight.aircraft}</TableCell>
                   <TableCell>{flight.econom_free_seats}</TableCell>
                   <TableCell>{flight.business_free_seats}</TableCell>
