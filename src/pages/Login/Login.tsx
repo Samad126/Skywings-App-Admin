@@ -1,23 +1,73 @@
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { useAppContext } from "@/hooks/useAppContext";
+import type {
+  FormSubmitType,
+  Login200Response,
+  Login401Response,
+  Login422Response,
+} from "@/types/Login";
+import { Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
-type FormSubmitType = {
-  login: string;
-  password: string;
-}
+const API_URL: string = import.meta.env.VITE_API_URL;
 
 const LoginPage = () => {
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const { updateUserData } = useAppContext();
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    setError("");
+    setLoading(true);
 
     const fd = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(fd.entries()) as FormSubmitType;
 
-    console.log(data);
+    const response = await fetch(`${API_URL}/admin/signIn/`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    let responseData:
+      | Login200Response
+      | Login401Response
+      | Login422Response
+      | undefined;
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        responseData = (await response.json()) as Login401Response;
+        setError(responseData.message);
+      } else if (response.status === 422) {
+        responseData = (await response.json()) as Login422Response;
+        setError(responseData.errors.password.join(" "));
+      } else {
+        const fallback = await response.text();
+        setError(fallback);
+      }
+
+      setLoading(false);
+      return;
+    }
+
+    responseData = (await response.json()) as Login200Response;
+
     navigate("/");
+
+    setLoading(false);
   };
+
+  function handleInputChange() {
+    setError("");
+  }
 
   return (
     <Box
@@ -45,10 +95,17 @@ const LoginPage = () => {
           Login
         </Typography>
 
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
         <TextField
-          label="Email"
+          label="Email or Username"
           type="email"
           name="login"
+          onChange={handleInputChange}
           fullWidth
           margin="normal"
           required
@@ -58,13 +115,20 @@ const LoginPage = () => {
           label="Password"
           type="password"
           name="password"
+          onChange={handleInputChange}
           fullWidth
           margin="normal"
           required
         />
 
-        <Button type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
-          Sign In
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 3 }}
+          disabled={loading}
+        >
+          {loading ? "Signing in..." : "Sign In"}
         </Button>
       </Box>
     </Box>
