@@ -3,7 +3,8 @@ import "./index.css";
 import Layout from "./Layout.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { TestPage1 } from "./pages/TestPage1.tsx";
+import { Homepage } from "./pages/Homepage.tsx";
+import Error from "./Error.tsx";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        // path: "/test",
-        element: <TestPage1 />,
+        element: <Homepage />,
+      },
+      {
+        path: "*",
+        element: <Error />,
       },
     ],
   },

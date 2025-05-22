@@ -19,7 +19,7 @@ import {
 
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 
 const drawerWidth: number = 240;
 
@@ -46,17 +46,34 @@ const Layout: React.FC = () => {
     console.log("Logged out");
   };
 
+  const drawerItems = [
+    { text: "Home", to: "/" },
+    { text: "Flights", to: "/flights" },
+    { text: "Airports", to: "/airports" },
+    { text: "Admin", to: "/admin" },
+  ];
+
   const drawer = (
     <Box sx={{ overflow: "auto" }}>
       <Toolbar />
       <List>
-        {["Dashboard", "Reports", "Analytics", "Settings"].map((text) => (
+        {drawerItems.map(({ text, to }) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText
-                primary={text}
-                primaryTypographyProps={{ fontWeight: 500 }}
-              />
+            <ListItemButton
+              component={NavLink}
+              to={to}
+              end
+              sx={{
+                fontWeight: 500,
+                color: "text.primary",
+                "&.active": {
+                  fontWeight: 700,
+                  color: "primary.main",
+                  bgcolor: "action.selected",
+                },
+              }}
+            >
+              <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
