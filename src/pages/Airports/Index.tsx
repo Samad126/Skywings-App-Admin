@@ -18,7 +18,7 @@ const airports = [
   },
   // Add more airport entries here if needed
 ];
-
+//
 export default function AirportIndex() {
   return (
     <Box>
