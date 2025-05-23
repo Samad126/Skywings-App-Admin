@@ -5,12 +5,13 @@ import {
   TextField,
   Table,
   TableContainer,
-  TableBody,
   Paper,
   CircularProgress,
   Alert,
   Button,
   Pagination,
+  TableBody,
+  Skeleton,
 } from "@mui/material";
 import { useSearchParams, useNavigate } from "react-router";
 import { useAppContext } from "@/hooks/useAppContext";
@@ -44,6 +45,7 @@ export default function FlightsIndex() {
   const {
     data: flights,
     isLoading,
+    isFetching,
     error,
     refetch,
   } = useFetchData<FlightsResponse>("flights", null, query, headers);
@@ -99,31 +101,37 @@ export default function FlightsIndex() {
       {!isLoading && flights && (
         <>
           <div style={{ overflow: "auto" }}>
-            <TableContainer
-              component={Paper}
-              sx={{ overflowX: "auto" }}
-            >
-              <Table sx={{ minWidth: 0}}>
-                <TableHeader />
-                <TableBody>
-                  {flightsArr.map((f) => (
-                    <TableRow
-                      key={f.id}
-                      adminId={adminId}
-                      flight={f}
-                      refetch={refetch}
-                      truncateCell={truncateCell}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            {isFetching && !isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                height={372}
+                animation="wave"
+                sx={{ borderRadius: 2, mb: 2 }}
+              />
+            ) : (
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 0 }}>
+                  <TableHeader />
+                  <TableBody>
+                    {flightsArr.map((f) => (
+                      <TableRow
+                        key={f.id}
+                        adminId={adminId}
+                        flight={f}
+                        refetch={refetch}
+                        truncateCell={truncateCell}
+                      />
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
           </div>
 
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Pagination
               count={flights.last_page ?? 1}
-              page={flights.current_page ?? 1}
+              page={flights.current_page ?? page}
               onChange={(_, v) => setPage(v)}
               color="primary"
             />
