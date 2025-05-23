@@ -5,11 +5,11 @@ import {
   Stack,
 } from "@mui/material";
 import DeleteButton from "./DeleteButton";
-import type { FlighDetail } from "@/types/Flight";
+import type { FlightDetail } from "@/types/Flight";
 import { useNavigate } from "react-router";
 
 type TableRowProps = {
-  flight: FlighDetail;
+  flight: FlightDetail;
   adminId: number | null;
   refetch: () => void;
 };
@@ -20,8 +20,13 @@ function TableRow({ flight, adminId, refetch }: TableRowProps) {
   return (
     <TableRowMui>
       <TableCell>{flight.id}</TableCell>
-      <TableCell>{flight.departure_airport_id}</TableCell>
-      <TableCell>{flight.arrival_airport_id}</TableCell>
+      <TableCell>{flight.flight_number}</TableCell>
+      <TableCell>
+        {flight.departure_city} - {flight.departure_airport_name}
+      </TableCell>
+      <TableCell>
+        {flight.arrival_city} - {flight.arrival_airport_name}
+      </TableCell>
       <TableCell>{new Date(flight.flight_date).toLocaleString()}</TableCell>
       <TableCell>{new Date(flight.arrival_date).toLocaleString()}</TableCell>
       <TableCell>{flight.aircraft}</TableCell>

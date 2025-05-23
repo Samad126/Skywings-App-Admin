@@ -8,7 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import useFetchData from "@/hooks/useFetchData";
-import type { FlighDetail } from "@/types/Flight";
+import type { FlightDetail } from "@/types/Flight";
 import { useMemo } from "react";
 
 export default function FlightDetail() {
@@ -21,7 +21,7 @@ export default function FlightDetail() {
     data: flight,
     isLoading,
     error,
-  } = useFetchData<FlighDetail>("flights", Number(id), null, headers);
+  } = useFetchData<FlightDetail>("flights", Number(id), null, headers);
 
   return (
     <Box sx={{ maxWidth: 700, mx: "auto", mt: 4, px: 2 }}>
@@ -49,13 +49,18 @@ export default function FlightDetail() {
           <Typography>
             <strong>ID:</strong> {flight.id}
           </Typography>
-          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6" gutterBottom>
+            Flight #{flight.flight_number}
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
 
           <Typography>
-            <strong>Departure Airport ID:</strong> {flight.departure_airport_id}
+            <strong>From:</strong> {flight.departure_city} –{" "}
+            {flight.departure_airport_name}
           </Typography>
           <Typography>
-            <strong>Arrival Airport ID:</strong> {flight.arrival_airport_id}
+            <strong>To:</strong> {flight.arrival_city} –{" "}
+            {flight.arrival_airport_name}
           </Typography>
           <Typography>
             <strong>Flight Date:</strong>{" "}
@@ -68,19 +73,38 @@ export default function FlightDetail() {
           <Typography>
             <strong>Aircraft:</strong> {flight.aircraft}
           </Typography>
+
           <Divider sx={{ my: 2 }} />
 
           <Typography>
-            <strong>Economy Seats:</strong> {flight.econom_free_seats}
+            <strong>Total Seats:</strong> {flight.total_seats}
           </Typography>
           <Typography>
-            <strong>Business Seats:</strong> {flight.business_free_seats}
+            <strong>Economy Free:</strong> {flight.econom_free_seats}
           </Typography>
+          <Typography>
+            <strong>Business Free:</strong> {flight.business_free_seats}
+          </Typography>
+          <Typography>
+            <strong>Booked Seats:</strong> {flight.booked_seats}
+          </Typography>
+
+          <Divider sx={{ my: 2 }} />
+
           <Typography>
             <strong>Economy Price:</strong> ${flight.econom_price}
           </Typography>
           <Typography>
             <strong>Business Price:</strong> ${flight.business_price}
+          </Typography>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Typography variant="body2" color="text.secondary">
+            Created At: {new Date(flight.created_at).toLocaleString()}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Updated At: {new Date(flight.updated_at).toLocaleString()}
           </Typography>
         </Box>
       )}

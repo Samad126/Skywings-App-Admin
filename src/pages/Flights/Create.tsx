@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import useFetchData from "@/hooks/useFetchData";
 import type { AirportsResponseItem } from "@/types/Airports";
 import { useAppContext } from "@/hooks/useAppContext";
+import type { FlightFormData } from "@/types/Flight";
 
 export default function FlightsCreate() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function FlightsCreate() {
     error: aircraftError,
   } = useFetchData<string[]>("enum/aircrafts", null, null, headers);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FlightFormData>({
     departure_airport_id: "",
     arrival_airport_id: "",
     flight_date: "",

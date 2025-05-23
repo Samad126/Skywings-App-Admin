@@ -1,14 +1,30 @@
-export type FlighDetail = {
+export type FlightBase = {
   id: number;
-  departure_airport_id: number;
-  arrival_airport_id: number;
+  departure_airport_id: string;
+  arrival_airport_id: string;
   flight_date: string;
   arrival_date: string;
   aircraft: string;
-  econom_free_seats: number;
-  business_free_seats: number;
-  econom_price: number;
-  business_price: number;
+  econom_free_seats: string;
+  business_free_seats: string;
+  econom_price: string;
+  business_price: string;
+};
+
+export type FlightFormData = Omit<FlightBase, "id">;
+
+export type FlightDetail = FlightBase & {
+  departure_city: string;
+  departure_airport_name: string;
+  arrival_city: string;
+  arrival_airport_name: string;
+  total_seats: number;
+  booked_seats: string;
+  flight_number: string;
+  created_at: string;
+  updated_at: string;
+  econom_price: string;
+  business_price: string;
 };
 
 export type LinkItem = {
@@ -19,7 +35,7 @@ export type LinkItem = {
 
 export type FlightsResponse = {
   current_page: number | null;
-  data: FlighDetail[];
+  data: FlightDetail[];
   first_page_url: string | null;
   from: null;
   last_page: number | null;
@@ -47,16 +63,4 @@ export type FlightsResponse = {
   prev_page_url: string | null;
   to: null;
   total: number | null;
-};
-
-export type FlightPOSTBody = {
-  departure_airport_id: number;
-  arrival_airport_id: number;
-  flight_date: string; //"2025-05-20T10:00:00Z"
-  arrival_date: string; //"2025-05-20T10:00:00Z"
-  aircraft: string;
-  econom_free_seats: number;
-  business_free_seats: number;
-  econom_price: number; //can be float
-  business_price: number; // can be float
 };

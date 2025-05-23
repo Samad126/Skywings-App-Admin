@@ -11,7 +11,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import useFetchData from "@/hooks/useFetchData";
 import type { AirportsResponseItem } from "@/types/Airports";
-import type { FlighDetail } from "@/types/Flight";
+import type { FlightDetail, FlightFormData } from "@/types/Flight";
 import { useAppContext } from "@/hooks/useAppContext";
 
 export default function FlightsEdit() {
@@ -30,7 +30,7 @@ export default function FlightsEdit() {
     data: flight,
     isLoading: isFlightLoading,
     error: flightError,
-  } = useFetchData<FlighDetail>("flights", flightId, null, requiredHeaders);
+  } = useFetchData<FlightDetail>("flights", flightId, null, requiredHeaders);
 
   const {
     data: airports,
@@ -44,7 +44,7 @@ export default function FlightsEdit() {
     error: aircraftError,
   } = useFetchData<string[]>("enum/aircrafts", null, null, headers);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FlightFormData>({
     departure_airport_id: "",
     arrival_airport_id: "",
     flight_date: "",
@@ -57,7 +57,7 @@ export default function FlightsEdit() {
   });
 
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     if (flight) {

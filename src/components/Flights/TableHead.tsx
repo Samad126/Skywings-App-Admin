@@ -5,8 +5,9 @@ function TableHeader() {
     <TableHead>
       <TableRow>
         <TableCell>ID</TableCell>
-        <TableCell>Departure Airport</TableCell>
-        <TableCell>Arrival Airport</TableCell>
+        <TableCell>Flight No.</TableCell>
+        <TableCell>Departure</TableCell>
+        <TableCell>Arrival</TableCell>
         <TableCell>Flight Date</TableCell>
         <TableCell>Arrival Date</TableCell>
         <TableCell>Aircraft</TableCell>
