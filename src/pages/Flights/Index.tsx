@@ -155,8 +155,8 @@ export default function FlightsIndex() {
                   <TableCell>{flight.aircraft}</TableCell>
                   <TableCell>{flight.econom_free_seats}</TableCell>
                   <TableCell>{flight.business_free_seats}</TableCell>
-                  <TableCell>${flight.econom_price.toFixed(2)}</TableCell>
-                  <TableCell>${flight.business_price.toFixed(2)}</TableCell>
+                  <TableCell>${flight.econom_price}</TableCell>
+                  <TableCell>${flight.business_price}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Button

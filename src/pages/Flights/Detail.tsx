@@ -77,10 +77,10 @@ export default function FlightDetail() {
             <strong>Business Seats:</strong> {flight.business_free_seats}
           </Typography>
           <Typography>
-            <strong>Economy Price:</strong> ${flight.econom_price.toFixed(2)}
+            <strong>Economy Price:</strong> ${flight.econom_price}
           </Typography>
           <Typography>
-            <strong>Business Price:</strong> ${flight.business_price.toFixed(2)}
+            <strong>Business Price:</strong> ${flight.business_price}
           </Typography>
         </Box>
       )}
