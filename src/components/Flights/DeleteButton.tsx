@@ -4,11 +4,18 @@ type BtnDelete = {
   adminId: number | null;
   refetch: () => void;
   flightId: number;
+  setIsDeleting: (deleting: boolean) => void;
 };
 
-function DeleteButton({ adminId, refetch, flightId }: BtnDelete) {
+function DeleteButton({
+  adminId,
+  refetch,
+  flightId,
+  setIsDeleting,
+}: BtnDelete) {
   const handleDelete = async (id: number) => {
     if (!confirm("Delete this flight?")) return;
+    setIsDeleting(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/flights/${id}`, {
         method: "DELETE",
@@ -23,6 +30,8 @@ function DeleteButton({ adminId, refetch, flightId }: BtnDelete) {
       alert(
         "Error deleting flight: " + (err instanceof Error ? err.message : "")
       );
+    } finally {
+      setIsDeleting(false);
     }
   };
 

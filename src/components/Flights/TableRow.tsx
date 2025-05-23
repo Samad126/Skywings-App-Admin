@@ -8,6 +8,7 @@ import DeleteButton from "./DeleteButton";
 import type { FlightDetail } from "@/types/Flight";
 import { useNavigate } from "react-router";
 import type { TruncateCell } from "@/types/etc";
+import { useState } from "react";
 
 type TableRowProps = {
   flight: FlightDetail;
@@ -17,10 +18,17 @@ type TableRowProps = {
 };
 
 function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const navigate = useNavigate();
 
   return (
-    <TableRowMui>
+    <TableRowMui
+      sx={{
+        opacity: isDeleting ? 0.5 : 1,
+        pointerEvents: isDeleting ? "none" : "auto",
+      }}
+    >
       <TableCell>{flight.id}</TableCell>
       <TableCell sx={truncateCell}>{flight.flight_number}</TableCell>
       <TableCell sx={truncateCell}>
@@ -29,8 +37,12 @@ function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
       <TableCell sx={truncateCell}>
         {flight.arrival_city} - {flight.arrival_airport_name}
       </TableCell>
-      <TableCell sx={truncateCell}>{new Date(flight.flight_date).toLocaleString()}</TableCell>
-      <TableCell sx={truncateCell}>{new Date(flight.arrival_date).toLocaleString()}</TableCell>
+      <TableCell sx={truncateCell}>
+        {new Date(flight.flight_date).toLocaleString()}
+      </TableCell>
+      <TableCell sx={truncateCell}>
+        {new Date(flight.arrival_date).toLocaleString()}
+      </TableCell>
       <TableCell sx={truncateCell}>{flight.aircraft}</TableCell>
       <TableCell sx={truncateCell}>{flight.econom_free_seats}</TableCell>
       <TableCell sx={truncateCell}>{flight.business_free_seats}</TableCell>
@@ -42,6 +54,7 @@ function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
             size="small"
             variant="outlined"
             onClick={() => navigate(`${flight.id}`)}
+            disabled={isDeleting}
           >
             View
           </Button>
@@ -50,6 +63,7 @@ function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
             variant="outlined"
             color="primary"
             onClick={() => navigate(`${flight.id}/edit`)}
+            disabled={isDeleting}
           >
             Edit
           </Button>
@@ -57,6 +71,7 @@ function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
             adminId={adminId}
             flightId={flight.id}
             refetch={refetch}
+            setIsDeleting={setIsDeleting}
           />
         </Stack>
       </TableCell>
