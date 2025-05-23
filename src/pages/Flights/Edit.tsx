@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useFlightEditForm } from "@/hooks/useFlightEditForm";
-import FlightEditForm from "@/components/Flights/FlightEditForm";
+import FlightForm from "@/components/Flights/FlightForm";
 
 export default function FlightsEdit() {
   const {
@@ -39,7 +39,7 @@ export default function FlightsEdit() {
         </Button>
       </Box>
 
-      <FlightEditForm
+      <FlightForm
         form={form}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
@@ -47,6 +47,7 @@ export default function FlightsEdit() {
         airports={airports}
         aircrafts={aircrafts}
         errors={[flightError, airportError, aircraftError, submitError]}
+        submitLabel="Update Flight"
       />
     </Box>
   );

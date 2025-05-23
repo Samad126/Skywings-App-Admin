@@ -17,9 +17,10 @@ type Props = {
   airports: AirportsResponseItem[] | null;
   aircrafts: string[] | null;
   errors: (string | null)[];
+  submitLabel: string;
 };
 
-export default function FlightEditForm({
+export default function FlightForm({
   form,
   handleChange,
   handleSubmit,
@@ -27,6 +28,7 @@ export default function FlightEditForm({
   airports,
   aircrafts,
   errors,
+  submitLabel,
 }: Props) {
   return (
     <Box component="form" onSubmit={handleSubmit}>
@@ -164,7 +166,7 @@ export default function FlightEditForm({
         fullWidth
         disabled={isSubmitting}
       >
-        {isSubmitting ? <CircularProgress size={24} /> : "Update Flight"}
+        {isSubmitting ? <CircularProgress size={24} /> : submitLabel}
       </Button>
     </Box>
   );
