@@ -30,7 +30,7 @@ export default function Homepage() {
         sx={{ width: "100%", maxWidth: 300 }}
       >
         <Button variant="contained" onClick={() => navigate("/flights")}>
-          View Flights
+          Manage Flights
         </Button>
         <Button variant="contained" onClick={() => navigate("/airports")}>
           Manage Airports
