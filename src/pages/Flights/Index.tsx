@@ -55,7 +55,7 @@ export default function FlightsIndex() {
   }, [selectedDate, page, setSearchParams]);
 
   return (
-    <Box sx={{ px: 2, py: 3 }}>
+    <Box>
       <Box
         sx={{
           display: "flex",

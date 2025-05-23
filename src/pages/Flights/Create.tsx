@@ -29,7 +29,7 @@ export default function FlightsCreate() {
   }
 
   return (
-    <Box sx={{ maxWidth: 700, mx: "auto", mt: 4, px: 2 }}>
+    <Box sx={{ maxWidth: 700, mx: "auto" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography variant="h4">Create Flight</Typography>
         <Button variant="outlined" onClick={() => navigate("/flights")}>
