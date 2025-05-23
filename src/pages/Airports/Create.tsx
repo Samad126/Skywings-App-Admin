@@ -19,7 +19,7 @@ export default function AirportsCreate() {
   } = useAirportCreateForm();
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4 }}>
+    <Box sx={{ maxWidth: 600, mx: "auto" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography variant="h4">Add New Airport</Typography>
         <Button variant="outlined" onClick={() => navigate("/airports")}>
