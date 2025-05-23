@@ -1,6 +1,6 @@
 import Layout from "../layout/Layout.tsx";
 
-import Error from "../Error.tsx";
+import Error from "../pages/Error.tsx";
 
 import Homepage from "../pages/Home/Homepage.tsx";
 
