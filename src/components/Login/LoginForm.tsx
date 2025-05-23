@@ -5,7 +5,12 @@ import {
   Button,
   Alert,
   CircularProgress,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import { useState } from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 type Props = {
   error: string;
@@ -20,6 +25,12 @@ export default function LoginForm({
   onSubmit,
   onInputChange,
 }: Props) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <Box
       component="form"
@@ -54,12 +65,21 @@ export default function LoginForm({
 
       <TextField
         label="Password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         name="password"
         fullWidth
         required
         onChange={onInputChange}
         margin="normal"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleTogglePassword} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
 
       <Button
