@@ -17,18 +17,10 @@ export default function FlightsEdit() {
     aircrafts,
     submitError,
     loadingAircrafts,
-    loadingAirports
+    loadingAirports,
   } = useFlightEditForm();
 
   const navigate = useNavigate();
-
-  if (isFlightLoading || loadingAirports || loadingAircrafts || !form) {
-    return (
-      <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
 
   return (
     <Box sx={{ maxWidth: 700, mx: "auto" }}>
@@ -39,16 +31,22 @@ export default function FlightsEdit() {
         </Button>
       </Box>
 
-      <FlightForm
-        form={form}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-        airports={airports}
-        aircrafts={aircrafts}
-        errors={[flightError, airportError, aircraftError, submitError]}
-        submitLabel="Update Flight"
-      />
+      {isFlightLoading || loadingAirports || loadingAircrafts || !form ? (
+        <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <FlightForm
+          form={form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          airports={airports}
+          aircrafts={aircrafts}
+          errors={[flightError, airportError, aircraftError, submitError]}
+          submitLabel="Update Flight"
+        />
+      )}
     </Box>
   );
 }

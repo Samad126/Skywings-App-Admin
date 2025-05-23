@@ -20,14 +20,6 @@ export default function FlightsCreate() {
 
   const navigate = useNavigate();
 
-  if (loadingAirports || loadingAircrafts) {
-    return (
-      <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ maxWidth: 700, mx: "auto" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
@@ -37,16 +29,22 @@ export default function FlightsCreate() {
         </Button>
       </Box>
 
-      <FlightForm
-        form={form}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-        airports={airports}
-        aircrafts={aircrafts}
-        errors={[error, airportError, aircraftError]}
-        submitLabel="Create Flight"
-      />
+      {loadingAirports || loadingAircrafts ? (
+        <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <FlightForm
+          form={form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          airports={airports}
+          aircrafts={aircrafts}
+          errors={[error, airportError, aircraftError]}
+          submitLabel="Create Flight"
+        />
+      )}
     </Box>
   );
 }
