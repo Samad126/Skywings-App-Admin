@@ -44,7 +44,7 @@ export default function LoginForm({
 
       <TextField
         label="Email or Username"
-        type="email"
+        type="text"
         name="login"
         fullWidth
         required
