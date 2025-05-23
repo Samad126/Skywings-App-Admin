@@ -18,7 +18,7 @@ export default function AdminCreate() {
   } = useAdminCreateForm();
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, px: 2 }}>
+    <Box sx={{ maxWidth: 600, mx: "auto"}}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography variant="h4">Add Admin</Typography>
         <Button variant="outlined" onClick={() => navigate("/admin")}>
