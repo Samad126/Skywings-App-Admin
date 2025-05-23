@@ -1,26 +1,17 @@
 import React, { useState } from "react";
 import {
-  AppBar,
   Box,
   CssBaseline,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Menu,
-  MenuItem,
+  Drawer as MuiDrawer,
   Toolbar,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import { useAppContext } from "../hooks/useAppContext";
+import Drawer from "@/components/Layout/Drawer";
+import LayoutHeader from "@/components/Layout/LayoutHeader";
 
 const drawerWidth: number = 240;
 
@@ -53,40 +44,6 @@ function Layout() {
     console.log("Logged out");
   };
 
-  const drawerItems = [
-    { text: "Home", to: "/" },
-    { text: "Flights", to: "/flights" },
-    { text: "Airports", to: "/airports" },
-    { text: "Admin", to: "/admin" },
-  ];
-
-  const drawer = (
-    <Box sx={{ overflow: "auto" }}>
-      <Toolbar />
-      <List>
-        {drawerItems.map(({ text, to }) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-              component={NavLink}
-              to={to}
-              sx={{
-                fontWeight: 500,
-                color: "text.primary",
-                "&.active": {
-                  fontWeight: 700,
-                  color: "primary.main",
-                  bgcolor: "action.selected",
-                },
-              }}
-            >
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
     <>
       <CssBaseline />
@@ -95,7 +52,7 @@ function Layout() {
           component="nav"
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         >
-          <Drawer
+          <MuiDrawer
             variant={isMobile ? "temporary" : "permanent"}
             open={isMobile ? mobileOpen : true}
             onClose={handleDrawerToggle}
@@ -109,8 +66,8 @@ function Layout() {
               },
             }}
           >
-            {drawer}
-          </Drawer>
+            <Drawer />
+          </MuiDrawer>
         </Box>
 
         <Box
@@ -123,65 +80,17 @@ function Layout() {
             width: "calc(100% - 250px)",
           }}
         >
-          <AppBar
-            position="fixed"
-            sx={{
-              zIndex: (theme) => theme.zIndex.drawer + 1,
-              backgroundColor: "#1976d2",
-              color: "#fff",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            }}
-          >
-            <Toolbar sx={{ justifyContent: "space-between" }}>
-              <Box display="flex" alignItems="center">
-                {isMobile && (
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    sx={{ mr: 2 }}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                )}
-                <Typography variant="h6" noWrap component="div">
-                  Dashboard
-                </Typography>
-              </Box>
-
-              <Box>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  onClick={handleMenu}
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
-              </Box>
-            </Toolbar>
-          </AppBar>
+          <LayoutHeader 
+            anchorEl={anchorEl}
+            handleClose={handleClose}
+            handleDrawerToggle={handleDrawerToggle}
+            handleLogout={handleLogout}
+            handleMenu={handleMenu}
+            isMobile={isMobile}
+          />
 
           <Toolbar />
 
-          {/* Main content */}
           <Outlet />
         </Box>
       </Box>
