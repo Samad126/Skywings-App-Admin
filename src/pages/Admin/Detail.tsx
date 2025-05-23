@@ -23,6 +23,8 @@ export default function AdminDetail() {
     error,
   } = useFetchData<AdminDetail>("admin", Number(id), null, headers);
 
+  console.log(admin?.profile_photo);
+
   return (
     <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, px: 2 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
@@ -48,7 +50,11 @@ export default function AdminDetail() {
         <Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
             <Avatar
-              src={admin.profile_photo || undefined}
+              src={
+                admin.profile_photo
+                  ? `https://skywings.alakx.com/storage/profile_photos/${admin.profile_photo}`
+                  : undefined
+              }
               sx={{ width: 64, height: 64, mr: 2 }}
             >
               {admin.username?.[0]?.toUpperCase() ?? "A"}

@@ -12,11 +12,15 @@ function TableRow({ admin }: { admin: AdminDetail }) {
     <TableRowMui key={admin.id}>
       <TableCell>{admin.id}</TableCell>
       <TableCell>
-        {admin.profile_photo ? (
-          <Avatar alt={admin.username || "Admin"} src={admin.profile_photo} />
-        ) : (
-          <Avatar>{admin.username?.[0] ?? "A"}</Avatar>
-        )}
+        <Avatar
+          src={
+            admin.profile_photo
+              ? `https://skywings.alakx.com/storage/profile_photos/${admin.profile_photo}`
+              : undefined
+          }
+        >
+          {admin.username?.[0]?.toUpperCase() ?? "A"}
+        </Avatar>
       </TableCell>
       <TableCell>{admin.username ?? "-"}</TableCell>
       <TableCell>{admin.email ?? "-"}</TableCell>
