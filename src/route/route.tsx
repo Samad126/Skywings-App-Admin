@@ -1,6 +1,6 @@
 import Layout from "../layout/Layout.tsx";
 
-import Error from "../pages/Error.tsx";
+import ErrorElement from "../pages/Error.tsx";
 
 import Homepage from "../pages/Home/Homepage.tsx";
 
@@ -23,6 +23,7 @@ export const router = createHashRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorElement />,
   },
   {
     path: "/",
@@ -31,6 +32,7 @@ export const router = createHashRouter([
         <Layout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorElement />,
     children: [
       {
         index: true,
@@ -65,36 +67,17 @@ export const router = createHashRouter([
       {
         path: "airports",
         children: [
-          {
-            index: true,
-            element: <AirportIndex />,
-          },
-          {
-            path: "create",
-            element: <AirportsCreate />,
-          },
+          { index: true, element: <AirportIndex /> },
+          { path: "create", element: <AirportsCreate /> },
         ],
       },
       {
         path: "admin",
         children: [
-          {
-            index: true,
-            element: <AdminIndex />,
-          },
-          {
-            path: ":id",
-            element: <AdminDetail />,
-          },
-          {
-            path: "create",
-            element: <AdminCreate />,
-          },
+          { index: true, element: <AdminIndex /> },
+          { path: "create", element: <AdminCreate /> },
+          { path: ":id", element: <AdminDetail /> },
         ],
-      },
-      {
-        path: "*",
-        element: <Error />,
       },
     ],
   },
