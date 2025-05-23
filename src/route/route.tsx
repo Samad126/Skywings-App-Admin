@@ -1,4 +1,4 @@
-import Layout from "../Layout.tsx";
+import Layout from "../layout/Layout.tsx";
 
 import Error from "../Error.tsx";
 

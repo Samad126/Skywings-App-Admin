@@ -20,7 +20,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { useAppContext } from "./hooks/useAppContext";
+import { useAppContext } from "../hooks/useAppContext";
 
 const drawerWidth: number = 240;
 
