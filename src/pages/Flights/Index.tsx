@@ -5,21 +5,19 @@ import {
   TextField,
   Table,
   TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
   TableBody,
   Paper,
   CircularProgress,
   Alert,
   Button,
-  Stack,
   Pagination,
 } from "@mui/material";
 import { useSearchParams, useNavigate } from "react-router";
 import { useAppContext } from "@/hooks/useAppContext";
 import type { FlightsResponse } from "@/types/Flight";
 import useFetchData from "@/hooks/useFetchData";
+import TableHeader from "@/components/Flights/TableHead";
+import TableRow from "@/components/Flights/TableRow";
 
 export default function FlightsIndex() {
   const { adminId } = useAppContext();
@@ -48,25 +46,6 @@ export default function FlightsIndex() {
   useEffect(() => {
     setSearchParams({ date: selectedDate, page: String(page) });
   }, [selectedDate, page, setSearchParams]);
-
-  const handleDelete = async (id: number) => {
-    if (!confirm("Delete this flight?")) return;
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/flights/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "user-id": String(adminId),
-        },
-      });
-      if (!res.ok) throw new Error((await res.text()) || "Delete failed");
-      refetch();
-    } catch (err) {
-      alert(
-        "Error deleting flight: " + (err instanceof Error ? err.message : "")
-      );
-    }
-  };
 
   return (
     <Box sx={{ px: 2, py: 3 }}>
@@ -114,66 +93,15 @@ export default function FlightsIndex() {
         <>
           <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
             <Table sx={{ minWidth: 1100 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Departure Airport</TableCell>
-                  <TableCell>Arrival Airport</TableCell>
-                  <TableCell>Flight Date</TableCell>
-                  <TableCell>Arrival Date</TableCell>
-                  <TableCell>Aircraft</TableCell>
-                  <TableCell>Economy Seats</TableCell>
-                  <TableCell>Business Seats</TableCell>
-                  <TableCell>Economy Price</TableCell>
-                  <TableCell>Business Price</TableCell>
-                  <TableCell>Actions</TableCell>
-                </TableRow>
-              </TableHead>
+              <TableHeader />
               <TableBody>
                 {flightsArr.map((f) => (
-                  <TableRow key={f.id}>
-                    <TableCell>{f.id}</TableCell>
-                    <TableCell>{f.departure_airport_id}</TableCell>
-                    <TableCell>{f.arrival_airport_id}</TableCell>
-                    <TableCell>
-                      {new Date(f.flight_date).toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(f.arrival_date).toLocaleString()}
-                    </TableCell>
-                    <TableCell>{f.aircraft}</TableCell>
-                    <TableCell>{f.econom_free_seats}</TableCell>
-                    <TableCell>{f.business_free_seats}</TableCell>
-                    <TableCell>${f.econom_price}</TableCell>
-                    <TableCell>${f.business_price}</TableCell>
-                    <TableCell>
-                      <Stack direction="row" spacing={1}>
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          onClick={() => navigate(`${f.id}`)}
-                        >
-                          View
-                        </Button>
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          color="primary"
-                          onClick={() => navigate(`${f.id}/edit`)}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          color="error"
-                          onClick={() => handleDelete(f.id)}
-                        >
-                          Delete
-                        </Button>
-                      </Stack>
-                    </TableCell>
-                  </TableRow>
+                  <TableRow
+                    key={f.id}
+                    adminId={adminId}
+                    flight={f}
+                    refetch={refetch}
+                  />
                 ))}
               </TableBody>
             </Table>
