@@ -21,7 +21,7 @@ function TableRow({ flight, adminId, refetch, truncateCell }: TableRowProps) {
 
   return (
     <TableRowMui>
-      <TableCell sx={truncateCell}>{flight.id}</TableCell>
+      <TableCell>{flight.id}</TableCell>
       <TableCell sx={truncateCell}>{flight.flight_number}</TableCell>
       <TableCell sx={truncateCell}>
         {flight.departure_city} - {flight.departure_airport_name}
