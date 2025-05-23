@@ -1,18 +1,16 @@
+import TableHeader from "@/components/Admin/TableHeader";
+import TableRow from "@/components/Admin/TableRow";
 import useFetchData from "@/hooks/useFetchData";
 import type { AdminDetail } from "@/types/Admin";
 import {
   Box,
   Typography,
   Table,
-  TableHead,
-  TableRow,
-  TableCell,
   TableBody,
   TableContainer,
   Paper,
   CircularProgress,
   Alert,
-  Avatar,
   Button,
 } from "@mui/material";
 import { useMemo } from "react";
@@ -60,48 +58,10 @@ export default function AdminIndex() {
       {!isLoading && !error && admins && (
         <TableContainer component={Paper}>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Profile</TableCell>
-                <TableCell>Username</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Created At</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
+            <TableHeader />
             <TableBody>
               {admins.map((admin) => (
-                <TableRow key={admin.id}>
-                  <TableCell>{admin.id}</TableCell>
-                  <TableCell>
-                    {admin.profile_photo ? (
-                      <Avatar
-                        alt={admin.username || "Admin"}
-                        src={admin.profile_photo}
-                      />
-                    ) : (
-                      <Avatar>{admin.username?.[0] ?? "A"}</Avatar>
-                    )}
-                  </TableCell>
-                  <TableCell>{admin.username ?? "-"}</TableCell>
-                  <TableCell>{admin.email ?? "-"}</TableCell>
-                  <TableCell>
-                    {admin.created_at
-                      ? new Date(admin.created_at).toLocaleDateString()
-                      : "-"}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      component={Link}
-                      to={`${admin.id}`}
-                      size="small"
-                      variant="outlined"
-                    >
-                      View Details
-                    </Button>
-                  </TableCell>
-                </TableRow>
+                <TableRow admin={admin} key={admin.id} />
               ))}
             </TableBody>
           </Table>

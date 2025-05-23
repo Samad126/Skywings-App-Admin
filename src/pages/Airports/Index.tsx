@@ -1,3 +1,5 @@
+import TableHeader from "@/components/Airports/TableHeader";
+import TableRow from "@/components/Airports/TableRow";
 import useFetchData from "@/hooks/useFetchData";
 import type { AirportsResponseItem } from "@/types/Airports";
 import {
@@ -5,10 +7,7 @@ import {
   Typography,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
-  TableHead,
-  TableRow,
   Paper,
   Button,
   CircularProgress,
@@ -63,20 +62,10 @@ export default function AirportsIndexPage() {
       {!isLoading && !error && airports && (
         <TableContainer component={Paper}>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>City</TableCell>
-              </TableRow>
-            </TableHead>
+            <TableHeader />
             <TableBody>
               {airports.map((airport) => (
-                <TableRow key={airport.id}>
-                  <TableCell>{airport.id}</TableCell>
-                  <TableCell>{airport.name}</TableCell>
-                  <TableCell>{airport.city}</TableCell>
-                </TableRow>
+                <TableRow airport={airport} key={airport.id} />
               ))}
             </TableBody>
           </Table>
