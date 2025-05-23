@@ -35,7 +35,7 @@ export default function Homepage() {
         <Button variant="contained" onClick={() => navigate("/airports")}>
           Manage Airports
         </Button>
-        <Button variant="contained" onClick={() => navigate("/admins")}>
+        <Button variant="contained" onClick={() => navigate("/admin")}>
           Manage Admins
         </Button>
       </Stack>
