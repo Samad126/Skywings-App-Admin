@@ -18,6 +18,13 @@ import type { FlightsResponse } from "@/types/Flight";
 import useFetchData from "@/hooks/useFetchData";
 import TableHeader from "@/components/Flights/TableHead";
 import TableRow from "@/components/Flights/TableRow";
+import type { TruncateCell } from "@/types/etc";
+
+const truncateCell: TruncateCell = {
+  minWidth: 140,
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+};
 
 export default function FlightsIndex() {
   const { adminId } = useAppContext();
@@ -91,21 +98,27 @@ export default function FlightsIndex() {
 
       {!isLoading && flights && (
         <>
-          <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
-            <Table sx={{ minWidth: 1100 }}>
-              <TableHeader />
-              <TableBody>
-                {flightsArr.map((f) => (
-                  <TableRow
-                    key={f.id}
-                    adminId={adminId}
-                    flight={f}
-                    refetch={refetch}
-                  />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <div style={{ overflow: "auto" }}>
+            <TableContainer
+              component={Paper}
+              sx={{ overflowX: "auto" }}
+            >
+              <Table sx={{ minWidth: 0}}>
+                <TableHeader />
+                <TableBody>
+                  {flightsArr.map((f) => (
+                    <TableRow
+                      key={f.id}
+                      adminId={adminId}
+                      flight={f}
+                      refetch={refetch}
+                      truncateCell={truncateCell}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
 
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Pagination

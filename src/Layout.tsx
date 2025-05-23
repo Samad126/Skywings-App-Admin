@@ -32,7 +32,7 @@ function Layout() {
 
   const navigate = useNavigate();
 
-  const {resetAdminState} = useAppContext();
+  const { resetAdminState } = useAppContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -49,7 +49,7 @@ function Layout() {
   const handleLogout = () => {
     handleClose();
     navigate("/login");
-    resetAdminState()
+    resetAdminState();
     console.log("Logged out");
   };
 
@@ -90,7 +90,7 @@ function Layout() {
   return (
     <>
       <CssBaseline />
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", width: "100%" }}>
         <Box
           component="nav"
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -120,6 +120,7 @@ function Layout() {
             p: { xs: 2, sm: 3 },
             backgroundColor: "#f9f9fb",
             minHeight: "100vh",
+            width: "calc(100% - 250px)",
           }}
         >
           <AppBar
